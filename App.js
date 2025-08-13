@@ -19,8 +19,12 @@ const App = () => {
 
   return (
     <div className="App">
+      <header className="app-header">
+        <h1 className="header-title">MENTORME _<span className="glow">KRISH Ramoju</span></h1>
+        <p className="header-subtitle">Ignite your potential with the power of AI.</p>
+      </header>
       <motion.div
-        className="main-container"
+        className="main-content-container"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
