@@ -1,39 +1,52 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { LuFeather, LuShieldCheck, LuSparkles } from 'react-icons/lu';
 
-const PersonCard = ({ image, name, title, course, badge, type }) => {
+const TestimonialCard = ({ image, name, title, course, badge, type }) => {
   const cardVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: { scale: 1, opacity: 1, transition: { type: 'spring', stiffness: 260, damping: 20, duration: 0.6 } },
+    hidden: { scale: 0.9, opacity: 0, filter: 'blur(10px)' },
+    visible: { scale: 1, opacity: 1, filter: 'blur(0px)', transition: { type: 'spring', stiffness: 100, damping: 20, duration: 0.8 } },
   };
 
-  const glowVariants = {
-    initial: { boxShadow: '0 0 0px var(--accent-color)' },
-    hover: { boxShadow: '0 0 25px var(--accent-color)', transition: { duration: 0.3 } },
-  };
+  const badgeIcon = {
+    'AIM': <LuFeather />,
+    'SkillBringer': <LuShieldCheck />,
+    'Flipkart': <LuSparkles />,
+  }[badge] || <LuSparkles />;
+
+  const badgeColor = {
+    'AIM': 'var(--glow-cyan)',
+    'SkillBringer': 'var(--glow-purple)',
+    'Flipkart': 'var(--glow-green)',
+  }[badge] || 'var(--glow-yellow)';
 
   return (
     <motion.div
-      className="person-card"
+      className="testimonial-card"
       variants={cardVariants}
-      whileHover="hover"
-      initial="initial"
-      animate="visible"
+      whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(0, 210, 211, 0.4)' }}
+      transition={{ type: 'spring', stiffness: 300, damping: 10 }}
     >
-      <motion.div variants={glowVariants} className="card-hover-effect">
-        <div className="card-header">
-          <img src={image} alt={name} className="profile-img" />
-          <span className="badge">{badge}</span>
+      <div className="card-border"></div>
+      <div className="testimonial-header">
+       
+        <div className="testimonial-info">
+          <h3 className="testimonial-name">{name}</h3>
+          <p className="testimonial-title">{title}</p>
         </div>
-        <h3>{name}</h3>
-        <p className="title">{title}</p>
-        <p className="course">{course}</p>
-        <div className={`course-type-tag ${type.replace(/\s+/g, '-').toLowerCase()}`}>
-          {type}
+        <div className="badge" style={{ color: badgeColor, border: `1px solid ${badgeColor}` }}>
+          <span className="badge-icon" style={{ color: badgeColor }}>
+            {badgeIcon}
+          </span>
+          {badge}
         </div>
-      </motion.div>
+      </div>
+      <p className="testimonial-course-name">{course}</p>
+      <div className="testimonial-course-type">
+        {type}
+      </div>
     </motion.div>
   );
 };
 
-export default PersonCard;
+export default TestimonialCard;
