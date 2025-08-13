@@ -1,178 +1,360 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap');
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Jura:wght@400;700&display=swap');
+/* Import react-icons and other necessary libraries. React doesn't use this, but it's good practice. */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
-/* Define CSS Variables for easy color management */
 :root {
-  --primary-bg: #1a1a2e; /* Deep purple-blue background */
-  --secondary-bg: #22223b; /* Slightly lighter card background */
-  --accent-color: #e94560; /* Vibrant red-pink for accents */
-  --text-primary: #ffffff;
-  --text-secondary: #a7a9be;
-  --card-border: rgba(255, 255, 255, 0.1);
-  --shadow-color: rgba(0, 0, 0, 0.5);
-  --success-color: #4CAF50;
-  --info-color: #2196F3;
-  --warning-color: #FFC107;
-  --purple-color: #9C27B0;
+  /* Ultra-Premium Palette */
+  --dark-bg: #0a0a1a;
+  --card-bg: rgba(26, 26, 46, 0.4); /* Translucent dark purple-blue */
+  --header-bg: #080816;
+
+  /* Holographic Accents */
+  --glow-cyan: #00e5e5;
+  --glow-purple: #9933ff;
+  --glow-green: #33ff99;
+  --glow-yellow: #ffeb3b;
+
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+
+  /* Glassmorphism Effect */
+  --frosted-blur: 10px;
 }
 
-/* Global & Body Styling */
 body {
-  background: linear-gradient(135deg, var(--primary-bg), #0f0f1b);
+  background-color: var(--dark-bg);
   color: var(--text-primary);
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto Mono', monospace;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
   overflow-x: hidden;
   position: relative;
-  min-height: 100vh;
+  
+  /* Add a subtle grid pattern */
+  background-image: linear-gradient(0deg, transparent 95%, var(--border-color) 100%),
+                    linear-gradient(90deg, transparent 95%, var(--border-color) 100%);
+  background-size: 20px 20px;
 }
 
-/* Background animation to create a vibrant, game-like feel */
-body::before {
-  content: '';
+.App {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.app-header {
+  background: var(--header-bg);
+  padding: 3rem 2rem;
+  border-bottom: 1px solid var(--glow-cyan);
+  box-shadow: 0 0 20px rgba(0, 229, 229, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.header-title {
+  font-family: 'Jura', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.header-title .glow {
+  text-shadow: 0 0 10px var(--glow-cyan), 0 0 20px var(--glow-cyan);
+  animation: title-glow 3s infinite ease-in-out alternate;
+}
+
+.header-subtitle {
+  font-family: 'Jura', sans-serif;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+}
+
+@keyframes title-glow {
+  0% { text-shadow: 0 0 10px var(--glow-cyan), 0 0 20px var(--glow-cyan); }
+  100% { text-shadow: 0 0 5px var(--glow-cyan), 0 0 10px var(--glow-cyan); }
+}
+
+.main-content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  position: relative;
+}
+
+.section-title {
+  font-family: 'Jura', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  color: var(--glow-green);
+  text-shadow: 0 0 5px var(--glow-green);
+}
+
+.testimonials-grid,
+.stats-grid {
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* Glassmorphism Card Style */
+.testimonial-card,
+.stats-tile {
+  background-color: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(var(--frosted-blur));
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 40px rgba(0, 229, 229, 0.4);
+}
+
+.stats-tile:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 40px rgba(153, 51, 255, 0.4);
+}
+
+.card-border {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, rgba(233, 69, 96, 0.15) 0%, rgba(233, 69, 96, 0) 70%);
-  animation: pulse 10s infinite ease-in-out;
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.testimonial-card:hover .card-border {
+  opacity: 1;
+  background: linear-gradient(45deg, var(--glow-cyan), var(--glow-purple));
   z-index: -1;
 }
+:root {
+  /* Hacked Academy Colors */
+  --dark-bg: #100f1c; /* Deep space black */
+  --card-bg: #1a1a2e; /* Dark purple-blue */
+  --header-bg: #0d0c1b; /* Even darker shade */
+  
+  /* Glowing Accents */
+  --glow-cyan: #00d2d3;
+  --glow-purple: #8338ec;
+  --glow-green: #37b99c;
+  --glow-yellow: #feca57;
 
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 0.2; }
-  50% { transform: scale(1.5); opacity: 0.4; }
-  100% { transform: scale(1); opacity: 0.2; }
+  --text-primary: #e0e0e0;
+  --text-secondary: #9a8c98;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
-/* Testimonials Section and Containers */
-.testimonials-section {
-  padding: 4rem 2rem;
+/* Global & Body Styling */
+body {
+  background-color: var(--dark-bg);
+  color: var(--text-primary);
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Background effects for a dynamic, futuristic feel */
+body::before, body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+body::before {
+  background: radial-gradient(circle at top left, var(--glow-purple) 0%, transparent 40%),
+              radial-gradient(circle at bottom right, var(--glow-cyan) 0%, transparent 40%);
+  opacity: 0.15;
+  animation: bg-glow 20s infinite ease-in-out;
+}
+
+@keyframes bg-glow {
+  0% { transform: scale(1); opacity: 0.15; }
+  50% { transform: scale(1.1); opacity: 0.25; }
+  100% { transform: scale(1); opacity: 0.15; }
+}
+
+.App {
+  text-align: center;
+}
+
+.app-header {
+  background-color: var(--header-bg);
+  padding: 3rem 2rem;
+  font-family: 'Orbitron', sans-serif;
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: #fff;
+  text-shadow: 0 0 10px var(--glow-cyan);
+}
+
+.main-content-container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 4rem 2rem;
 }
 
-.cards-container,
-.stats-container {
+/* Section Titles */
+.section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  color: var(--glow-cyan);
+  text-shadow: 0 0 5px var(--glow-cyan);
+}
+
+/* Grids */
+.testimonials-grid,
+.stats-grid {
   display: grid;
   gap: 2rem;
-  margin-bottom: 3rem;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
-/* Person Card Styling with new hover effect */
-.person-card {
-  background-color: var(--secondary-bg);
-  border-radius: 15px;
+/* Testimonial Card Styling */
+.testimonial-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
   padding: 1.5rem;
-  text-align: center;
+  text-align: left;
   position: relative;
-  box-shadow: 0 8px 30px var(--shadow-color);
   overflow: hidden;
-  border: 1px solid var(--card-border);
-  transition: transform 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.card-hover-effect {
-  border-radius: 15px;
-  transition: box-shadow 0.3s ease;
+.testimonial-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 25px var(--glow-purple);
 }
 
-.card-header {
+.testimonial-header {
   display: flex;
-  justify-content: center;
-  position: relative;
-  margin-bottom: 1.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-.profile-img {
-  width: 90px;
-  height: 90px;
+.testimonial-img {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid var(--accent-color);
-  box-shadow: 0 0 15px rgba(233, 69, 96, 0.5);
+  margin-right: 1rem;
+  border: 2px solid var(--glow-cyan);
+  box-shadow: 0 0 10px rgba(0, 210, 211, 0.5);
+}
+
+.testimonial-info {
+  flex-grow: 1;
+}
+
+.testimonial-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--glow-cyan);
+}
+
+.testimonial-title {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0;
 }
 
 .badge {
-  position: absolute;
-  top: 0;
-  right: 15px;
-  background-color: var(--info-color);
-  color: var(--text-primary);
-  padding: 0.3rem 0.8rem;
-  border-radius: 10px;
-  font-size: 0.8rem;
+  color: var(--glow-yellow);
+  font-size: 0.75rem;
   font-weight: 600;
-  transform: rotate(-10deg) translate(10px, -10px);
-  z-index: 10;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid var(--glow-yellow);
 }
 
-.person-card h3 {
-  margin: 0.5rem 0;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--accent-color);
+.testimonial-course-name {
+  font-weight: 600;
+  color: #fff;
+  margin: 1rem 0 0.5rem 0;
 }
 
-.person-card .title {
-  color: var(--text-secondary);
+.testimonial-course-type {
   font-size: 0.9rem;
-  margin: 0;
+  color: var(--text-secondary);
 }
 
-.person-card .course {
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 1rem 0;
-  color: var(--warning-color);
-}
-
-.course-type-tag {
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: bold;
-  display: inline-block;
-  margin-top: 1rem;
-}
-
-.digital-marketing-with-ai {
-  background-color: var(--info-color);
-  color: var(--text-primary);
-}
-
-.programming-courses {
-  background-color: var(--purple-color);
-  color: var(--text-primary);
-}
-
-.software-development-courses {
-  background-color: var(--success-color);
-  color: var(--text-primary);
-}
-
-/* Stats Card Styling */
-.stats-card {
-  background-color: var(--secondary-bg);
-  border-radius: 15px;
-  padding: 1.5rem;
+/* Stats Tile Styling */
+.stats-section {
   text-align: center;
-  box-shadow: 0 8px 30px var(--shadow-color);
-  border: 1px solid var(--card-border);
 }
 
-.stats-card h2 {
-  color: var(--warning-color);
+.stats-tile {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stats-tile:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 25px var(--glow-cyan);
+}
+
+.stats-icon {
   font-size: 2.5rem;
-  margin: 0;
-  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--glow-purple);
+  text-shadow: 0 0 10px var(--glow-purple);
 }
 
-.stats-card p {
+.stats-count-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--glow-cyan);
+  text-shadow: 0 0 8px var(--glow-cyan);
+}
+
+.stats-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
   color: var(--text-secondary);
   margin: 0.5rem 0 0;
-  font-size: 1rem;
-  font-weight: 400;
 }
