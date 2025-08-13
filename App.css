@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* Define CSS Variables for easy color management */
+:root {
+  --primary-bg: #1a1a2e; /* Deep purple-blue background */
+  --secondary-bg: #22223b; /* Slightly lighter card background */
+  --accent-color: #e94560; /* Vibrant red-pink for accents */
+  --text-primary: #ffffff;
+  --text-secondary: #a7a9be;
+  --card-border: rgba(255, 255, 255, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --success-color: #4CAF50;
+  --info-color: #2196F3;
+  --warning-color: #FFC107;
+  --purple-color: #9C27B0;
+}
+
+/* Global & Body Styling */
+body {
+  background: linear-gradient(135deg, var(--primary-bg), #0f0f1b);
+  color: var(--text-primary);
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Background animation to create a vibrant, game-like feel */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(233, 69, 96, 0.15) 0%, rgba(233, 69, 96, 0) 70%);
+  animation: pulse 10s infinite ease-in-out;
+  z-index: -1;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.2; }
+  50% { transform: scale(1.5); opacity: 0.4; }
+  100% { transform: scale(1); opacity: 0.2; }
+}
+
+/* Testimonials Section and Containers */
+.testimonials-section {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cards-container,
+.stats-container {
+  display: grid;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Person Card Styling with new hover effect */
+.person-card {
+  background-color: var(--secondary-bg);
+  border-radius: 15px;
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 8px 30px var(--shadow-color);
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  transition: transform 0.3s ease;
+}
+
+.card-hover-effect {
+  border-radius: 15px;
+  transition: box-shadow 0.3s ease;
+}
+
+.card-header {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.profile-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--accent-color);
+  box-shadow: 0 0 15px rgba(233, 69, 96, 0.5);
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  background-color: var(--info-color);
+  color: var(--text-primary);
+  padding: 0.3rem 0.8rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transform: rotate(-10deg) translate(10px, -10px);
+  z-index: 10;
+}
+
+.person-card h3 {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+.person-card .title {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.person-card .course {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1rem 0;
+  color: var(--warning-color);
+}
+
+.course-type-tag {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.digital-marketing-with-ai {
+  background-color: var(--info-color);
+  color: var(--text-primary);
+}
+
+.programming-courses {
+  background-color: var(--purple-color);
+  color: var(--text-primary);
+}
+
+.software-development-courses {
+  background-color: var(--success-color);
+  color: var(--text-primary);
+}
+
+/* Stats Card Styling */
+.stats-card {
+  background-color: var(--secondary-bg);
+  border-radius: 15px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 8px 30px var(--shadow-color);
+  border: 1px solid var(--card-border);
+}
+
+.stats-card h2 {
+  color: var(--warning-color);
+  font-size: 2.5rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+.stats-card p {
+  color: var(--text-secondary);
+  margin: 0.5rem 0 0;
+  font-size: 1rem;
+  font-weight: 400;
+}
