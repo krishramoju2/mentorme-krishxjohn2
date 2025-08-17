@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentor Platform Testimonials</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Base */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: #e6f7ff;
+      overflow-x: hidden;
+    }
+
+    .App {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: #0366d6;
+      margin-bottom: 40px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    /* Carousel container */
+    .carousel {
+      position: relative;
+      width: 90%;
+      max-width: 1000px;
+      overflow: hidden;
+      margin: auto;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 30px;
+      animation: scroll 40s linear infinite;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Testimonial cards */
+    .testimonial {
+      flex: 0 0 280px;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease;
+    }
+
+    .testimonial:hover {
+      transform: translateY(-10px) scale(1.05);
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #0366d6;
+      margin-bottom: 15px;
+      transition: transform 0.3s;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .avatar:hover {
+      transform: scale(1.1);
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      color: #555;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .testimonial-name {
+      font-weight: 700;
+      color: #0366d6;
+      font-size: 1.1rem;
+      margin-bottom: 3px;
+    }
+
+    .testimonial-role {
+      font-style: italic;
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    .testimonial-company {
+      color: #0366d6;
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    .testimonial-location, .testimonial-date {
+      font-size: 0.8rem;
+      color: #666;
+      margin-bottom: 2px;
+    }
+
+    /* Buttons */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #0366d6;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 10;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .carousel-btn:hover {
+      transform: translateY(-50%) scale(1.2);
+      background-color: #024a9c;
+    }
+
+    .carousel-btn.prev { left: 10px; }
+    .carousel-btn.next { right: 10px; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .carousel-track { animation: none; gap: 20px; }
+      .testimonial { min-width: 80%; }
+      .carousel-btn { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="App">
+    <h1>Mentor Testimonials</h1>
+    <div class="carousel">
+      <button class="carousel-btn prev">&#10094;</button>
+      <div class="carousel-track" id="carousel-track">
+        <!-- Testimonials will be injected by JS -->
+      </div>
+      <button class="carousel-btn next">&#10095;</button>
+    </div>
+  </div>
+
+  <script>
+    const testimonials = [
+      { name:"Alice Johnson", text:"This platform changed my career!", role:"Web Developer", avatar:"https://randomuser.me/api/portraits/women/1.jpg", company:"TechCorp", location:"New York, USA", date:"2024-05-12" },
+      { name:"Bob Smith", text:"Amazing mentorship and guidance.", role:"Data Scientist", avatar:"https://randomuser.me/api/portraits/men/2.jpg", company:"DataWorks", location:"London, UK", date:"2024-04-28" },
+      { name:"Clara Lee", text:"Learned so much in such little time.", role:"UI/UX Designer", avatar:"https://randomuser.me/api/portraits/women/3.jpg", company:"DesignHub", location:"Toronto, Canada", date:"2024-06-02" },
+      { name:"David Kim", text:"Highly recommend to anyone seeking growth.", role:"Product Manager", avatar:"https://randomuser.me/api/portraits/men/4.jpg", company:"InnovateX", location:"Seoul, South Korea", date:"2024-03-19" },
+      { name:"Eva Chen", text:"Incredible support from mentors.", role:"Software Engineer", avatar:"https://randomuser.me/api/portraits/women/5.jpg", company:"CloudNine", location:"San Francisco, USA", date:"2024-05-05" },
+      { name:"Frank Wilson", text:"The network I built here is invaluable.", role:"AI Researcher", avatar:"https://randomuser.me/api/portraits/men/6.jpg", company:"DeepThink Labs", location:"Berlin, Germany", date:"2024-02-14" }
+      // Add more as needed
+    ];
+
+    const track = document.getElementById('carousel-track');
+
+    // Duplicate testimonials for continuous scroll
+    const allTestimonials = [...testimonials, ...testimonials];
+
+    allTestimonials.forEach(t => {
+      const div = document.createElement('div');
+      div.className = 'testimonial';
+      div.innerHTML = `
+        <div class="avatar"><img src="${t.avatar}" alt="${t.name}"></div>
+        <div class="testimonial-text">${t.text}</div>
+        <div class="testimonial-name">${t.name}</div>
+        <div class="testimonial-role">${t.role}</div>
+        <div class="testimonial-company">${t.company}</div>
+        <div class="testimonial-location">${t.location}</div>
+        <div class="testimonial-date">${t.date}</div>
+      `;
+      track.appendChild(div);
+    });
+
+    const btnPrev = document.querySelector('.carousel-btn.prev');
+    const btnNext = document.querySelector('.carousel-btn.next');
+
+    btnPrev.addEventListener('click', () => {
+      track.scrollBy({ left: -300, behavior: 'smooth' });
+    });
+
+    btnNext.addEventListener('click', () => {
+      track.scrollBy({ left: 300, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
