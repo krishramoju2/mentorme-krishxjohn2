@@ -29,8 +29,8 @@
     /* Carousel container */
     .carousel {
       position: relative;
-      width: 90%;
-      max-width: 1000px;
+      width: 95%;
+      max-width: 1200px;
       overflow: hidden;
       margin: auto;
     }
@@ -38,12 +38,12 @@
     .carousel-track {
       display: flex;
       gap: 30px;
-      animation: scroll 40s linear infinite;
+      animation: scrollRight 20s linear infinite;
     }
 
-    @keyframes scroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+    @keyframes scrollRight {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
     }
 
     /* Testimonial cards */
@@ -60,7 +60,7 @@
     }
 
     .testimonial:hover {
-      transform: translateY(-10px) scale(1.05);
+      transform: translateY(-8px) scale(1.05);
     }
 
     .avatar {
@@ -118,36 +118,10 @@
       margin-bottom: 2px;
     }
 
-    /* Buttons */
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: #0366d6;
-      color: #fff;
-      border: none;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      font-size: 1.5rem;
-      cursor: pointer;
-      z-index: 10;
-      transition: transform 0.2s, background 0.2s;
-    }
-
-    .carousel-btn:hover {
-      transform: translateY(-50%) scale(1.2);
-      background-color: #024a9c;
-    }
-
-    .carousel-btn.prev { left: 10px; }
-    .carousel-btn.next { right: 10px; }
-
     /* Responsive */
     @media (max-width: 768px) {
-      .carousel-track { animation: none; gap: 20px; }
+      .carousel-track { gap: 20px; animation: scrollRight 40s linear infinite; }
       .testimonial { min-width: 80%; }
-      .carousel-btn { display: none; }
     }
   </style>
 </head>
@@ -155,11 +129,9 @@
   <div class="App">
     <h1>Mentor Testimonials</h1>
     <div class="carousel">
-      <button class="carousel-btn prev">&#10094;</button>
       <div class="carousel-track" id="carousel-track">
-        <!-- Testimonials will be injected by JS -->
+        <!-- Testimonials injected by JS -->
       </div>
-      <button class="carousel-btn next">&#10095;</button>
     </div>
   </div>
 
@@ -170,14 +142,17 @@
       { name:"Clara Lee", text:"Learned so much in such little time.", role:"UI/UX Designer", avatar:"https://randomuser.me/api/portraits/women/3.jpg", company:"DesignHub", location:"Toronto, Canada", date:"2024-06-02" },
       { name:"David Kim", text:"Highly recommend to anyone seeking growth.", role:"Product Manager", avatar:"https://randomuser.me/api/portraits/men/4.jpg", company:"InnovateX", location:"Seoul, South Korea", date:"2024-03-19" },
       { name:"Eva Chen", text:"Incredible support from mentors.", role:"Software Engineer", avatar:"https://randomuser.me/api/portraits/women/5.jpg", company:"CloudNine", location:"San Francisco, USA", date:"2024-05-05" },
-      { name:"Frank Wilson", text:"The network I built here is invaluable.", role:"AI Researcher", avatar:"https://randomuser.me/api/portraits/men/6.jpg", company:"DeepThink Labs", location:"Berlin, Germany", date:"2024-02-14" }
-      // Add more as needed
+      { name:"Frank Wilson", text:"The network I built here is invaluable.", role:"AI Researcher", avatar:"https://randomuser.me/api/portraits/men/6.jpg", company:"DeepThink Labs", location:"Berlin, Germany", date:"2024-02-14" },
+      { name:"Grace Lee", text:"Mentors guided me perfectly!", role:"Full Stack Developer", avatar:"https://randomuser.me/api/portraits/women/7.jpg", company:"WebSolutions", location:"Sydney, Australia", date:"2024-03-22" },
+      { name:"Henry Brown", text:"Top-notch mentorship experience.", role:"Cloud Engineer", avatar:"https://randomuser.me/api/portraits/men/8.jpg", company:"CloudTech", location:"Toronto, Canada", date:"2024-04-10" },
+      { name:"Ivy Turner", text:"Learned more than I expected.", role:"Data Analyst", avatar:"https://randomuser.me/api/portraits/women/9.jpg", company:"InsightCorp", location:"London, UK", date:"2024-05-18" }
+      // Add more testimonials as desired
     ];
 
     const track = document.getElementById('carousel-track');
 
-    // Duplicate testimonials for continuous scroll
-    const allTestimonials = [...testimonials, ...testimonials];
+    // Duplicate testimonials to make continuous scroll seamless
+    const allTestimonials = [...testimonials, ...testimonials, ...testimonials];
 
     allTestimonials.forEach(t => {
       const div = document.createElement('div');
@@ -192,17 +167,6 @@
         <div class="testimonial-date">${t.date}</div>
       `;
       track.appendChild(div);
-    });
-
-    const btnPrev = document.querySelector('.carousel-btn.prev');
-    const btnNext = document.querySelector('.carousel-btn.next');
-
-    btnPrev.addEventListener('click', () => {
-      track.scrollBy({ left: -300, behavior: 'smooth' });
-    });
-
-    btnNext.addEventListener('click', () => {
-      track.scrollBy({ left: 300, behavior: 'smooth' });
     });
   </script>
 </body>
